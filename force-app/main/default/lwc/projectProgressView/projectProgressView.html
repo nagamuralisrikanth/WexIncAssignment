@@ -1,0 +1,28 @@
+<template>
+    <lightning-card title="Project Progress">
+        <template if:true={project}>
+            <div class="slds-p-around_medium">
+                <h3 class="slds-text-heading_small">{project.name}</h3>
+                <lightning-progress-ring value={project.percent} size="large" variant="base-autocomplete">
+                    <span class="slds-text-heading_small">{project.percent}%</span>
+                </lightning-progress-ring>
+            </div>
+
+            <template if:true={milestones}>
+                <div class="slds-p-horizontal_medium">
+                    <template for:each={milestones} for:item="m">
+                        <div key={m.id} class="slds-box slds-m-vertical_small">
+                            <p class="slds-text-title_bold">{m.name}</p>
+                            <lightning-progress-ring value={m.percent} size="medium">
+                                <span class="slds-text-body_regular">{m.percent}%</span>
+                            </lightning-progress-ring>
+                        </div>
+                    </template>
+                </div>
+            </template>
+        </template>
+        <template if:false={project}>
+            <p class="slds-p-around_medium">Loading project progress...</p>
+        </template>
+    </lightning-card>
+</template>

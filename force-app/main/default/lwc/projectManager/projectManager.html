@@ -1,0 +1,75 @@
+<template>
+    <lightning-card title="Create New Project">
+        <div class="slds-p-horizontal_medium slds-p-vertical_small">
+            <!-- Project Name Input -->
+            <lightning-input
+                label="Project Name"
+                value={project.name}
+                onchange={handleProjectChange}>
+            </lightning-input>
+            
+            <!-- Loop through milestones -->
+            <template for:each={milestones} for:item="milestone" for:index="mIndex">
+                <div key={milestone.uid} class="slds-box slds-m-vertical_medium">
+                    <lightning-input
+                        label="Milestone Name"
+                        data-index={mIndex}
+                        value={milestone.name}
+                        onchange={handleMilestoneChange}>
+                    </lightning-input>
+            
+                    <lightning-input
+                        type="date"
+                        label="Due Date"
+                        data-index={mIndex}
+                        value={milestone.dueDate}
+                        onchange={handleMilestoneDateChange}>
+                    </lightning-input>
+
+                    <!-- To-Do Inputs -->
+                    <template for:each={milestone.todos} for:item="todo" for:index="tIndex">
+                        <div key={todo.uid} class="slds-m-left_large">
+                            <lightning-input
+                                label="To-Do Name"
+                                data-milestoneindex={mIndex}
+                                data-todoindex={tIndex}
+                                value={todo.name}
+                                onchange={handleTodoChange}>
+                            </lightning-input>
+            
+                            <lightning-input
+                                type="date"
+                                label="Due Date"
+                                data-milestoneindex={mIndex}
+                                data-todoindex={tIndex}
+                                value={todo.dueDate}
+                                onchange={handleTodoDateChange}>
+                            </lightning-input>
+                        </div>
+                    </template>
+            
+                    <lightning-button
+                        label="Add To-Do"
+                        data-index={mIndex}
+                        onclick={addTodo}
+                        class="slds-m-top_small">
+                    </lightning-button>
+                </div>
+            </template>
+            
+
+            <lightning-button
+                label="Add Milestone"
+                onclick={addMilestone}
+                class="slds-m-top_medium">
+            </lightning-button>
+
+            <lightning-button
+                variant="brand"
+                label="Create Project"
+                onclick={handleSubmit}
+                class="slds-m-top_medium">
+            </lightning-button>
+        </div>
+    </lightning-card>
+</template>
